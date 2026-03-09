@@ -9,23 +9,17 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/vicky5762/devops-cicd-demo.git'
-            }
-        }
-
         stage('Build') {
             steps {
                 echo "Building ${APP_NAME} version ${BUILD_VERSION}"
-                sh 'echo Compiling application'
+                sh 'echo compiling code'
             }
         }
 
         stage('Test') {
             steps {
                 echo "Running tests"
-                sh 'echo Test execution complete'
+                sh 'echo test execution'
             }
         }
 
@@ -34,7 +28,7 @@ pipeline {
                 not { branch 'main' }
             }
             steps {
-                echo "Pull Request validation successful"
+                echo "PR validation successful"
             }
         }
 
@@ -43,18 +37,10 @@ pipeline {
                 branch 'main'
             }
             steps {
-                echo "Deploying ${APP_NAME} to ${DEPLOY_ENV}"
-                sh 'echo Deployment finished'
+                echo "Deploying to ${DEPLOY_ENV}"
+                sh 'echo deployment completed'
             }
         }
-    }
 
-    post {
-        success {
-            echo "Pipeline completed successfully"
-        }
-        failure {
-            echo "Pipeline failed"
-        }
     }
 }
