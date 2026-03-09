@@ -32,15 +32,15 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
-            when {
-                branch 'main'
-            }
-            steps {
-                echo "Deploying to ${DEPLOY_ENV}"
-                sh 'echo deployment completed'
-            }
-        }
+     stage('Deploy') {
+    when { branch 'main' }
+    steps {
+        sh '''
+        echo "Deploying to Tomcat"
+        cp target/app.war /var/lib/tomcat10/webapps/
+        '''
+    }
+}
 
     }
 }
